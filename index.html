@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <h2><i class="fa-solid fa-location-dot"></i><span id="location"></span></h2>
+            <h6 id="weather"></h6>
+            <h4><span id="temp"></span><sup>o</sup>C</h4>
+            <img src="" class="icon">
+            <button onclick="window.location.reload()" class="refresh"><i class="fa fa-refresh"></i></button>
+        </div>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/8e849724cf.js" crossorigin="anonymous"></script>
+<script>
+    link = "https://api.openweathermap.org/data/2.5/weather?q=mumbai&appid=063f43d8a3a75189ebec182896849b14";
+    var request = new XMLHttpRequest();
+    request.open('GET', link, true);
+    request.onload = function () {
+        var data = JSON.parse(this.response);
+        console.log(data);
+        document.getElementById('location').innerHTML = data.name;
+        document.getElementById('weather').innerHTML = data.weather[0].description;
+        document.getElementById('temp').innerHTML = (data.main.temp - 273.15).toFixed(0);
+        document.querySelector('.icon').src = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+    }
+    if (request.status >= 200 && request.status < 400) {
+        var temp = data.main.temp - 273.15;
+    } else {
+        console.log('error');
+    }
+    request.send();
+</script>
+
+</html>
